@@ -7,5 +7,4 @@ const questionRoute = express.Router();
 questionRoute.post("/askQuestion", questionController.insertQuestion);
 questionRoute.get("/", questionController.getAllQuestions);
 questionRoute.get("/id", questionController.getSingleQuestion);
-
 export default questionRoute;
