@@ -14,14 +14,14 @@ VALUES (?, ?, ?, CURRENT_TIMESTAMP);`,
   a.userId AS answerUserId,
   uaf.imageUrl AS answerUserProfileImage
 FROM
-  questions q
+  answers a
+  LEFT JOIN questions q ON a.questionId = q.questionId
   LEFT JOIN users uq ON q.userId = uq.userId
   LEFT JOIN userProfile uqf ON uq.userId = uqf.userId
-  LEFT JOIN answers a ON q.questionId = a.questionId
   LEFT JOIN users ua ON a.userId = ua.userId
   LEFT JOIN userProfile uaf ON ua.userId = uaf.userId
 WHERE
-  a.answerId = ?;
+  a.questionId = ?;
 
 `,
 };

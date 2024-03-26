@@ -60,13 +60,16 @@ const questionController = {
     }
   },
   getSingleQuestion: async (req, res) => {
-    console.log("req.params.id", req.params.id);
-    const questionId = req.params.id;
-    console.log("questionId", questionId);
+    console.log("req.params.id", typeof req.params.id);
+    req.body.questionId = parseInt(req.params.id);
+    const questionId = req.body.questionId;
+    console.log("questionId", typeof questionId);
+    console.log("req.body.questionId", req.body.questionId);
     try {
       // Retrieve question from the database based on question ID
+
       const question = await questionService.getQuestionByQuestionId(
-        questionId
+        req.body.questionId
       );
 
       if (!question) {
@@ -75,7 +78,7 @@ const questionController = {
       }
 
       // Send the question as a response
-      res.status(200).json({ question });
+      res.status(200).json({ data: question });
     } catch (error) {
       // Handle errors
       console.error("Error in getSingleQuestion:", error);

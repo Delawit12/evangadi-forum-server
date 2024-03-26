@@ -4,9 +4,16 @@ const answerController = {
   // Insert a new answer
   insertAnswer: async (req, res) => {
     try {
-      const userId = req.body.Id; // Corrected userId retrieval
+      // const userId = req.body.Id; // Corrected userId retrieval
       const { questionId, answer } = req.body;
-      req.body.userId = userId;
+      // const userId = req.body.userId;
+      console.log("req.body", req.body);
+      const userId = req.body.userId;
+      console.log("userId", userId);
+      // req.body.userId = userId;
+      // console.log("userId", userId);
+      // console.log("questionId", questionId);
+      // console.log("answer", answer);
       // Check if all fields are provided
       if (!userId || !questionId || !answer) {
         return res.status(400).json({
@@ -37,11 +44,23 @@ const answerController = {
   },
   // Get answer details by answerId
   getAnswerDetailsById: async (req, res) => {
+    // console.log("req.params.id", typeof req.params.id);
+    // req.body.questionId = parseInt(req.params.id);
+    // const questionId = req.body.questionId;
+    // console.log("questionId", typeof questionId);
+    // console.log("req.body.questionId", req.body.questionId);
     try {
-      const answerId = req.params.answerId;
+      console.log("req.params.id", typeof req.params.id);
+      req.body.questionId = parseInt(req.params.id);
+      const questionId = req.body.questionId;
+      console.log("questionId", typeof questionId);
+      console.log("req.body.questionId", req.body.questionId);
+      // const answerId = req.params.answerId;
 
       // Call the service method to fetch answer details by answerId
-      const answerDetails = await answerService.getAnswerDetailsById(answerId);
+      const answerDetails = await answerService.getAnswerDetailsById(
+        questionId
+      );
 
       // Check if answer details were found
       if (!answerDetails || answerDetails.length === 0) {

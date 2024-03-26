@@ -17,11 +17,10 @@ const questionService = {
   // Get a single question by question ID
   getQuestionByQuestionId: async (questionId) => {
     try {
-      const rows = await query(
-        questionQueries.getQuestionByQuestionId,
-        questionId
-      );
-      return rows;
+      const rows = await query(questionQueries.getQuestionByQuestionId, [
+        questionId,
+      ]);
+      return rows[0];
     } catch (error) {
       console.error("Error in getQuestionById:", error);
       throw error;

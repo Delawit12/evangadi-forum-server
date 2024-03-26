@@ -309,6 +309,26 @@ const userController = {
       });
     }
   },
+  getUserById: async (req, res) => {
+    try {
+      userService.getUserByUserId(req.body.Id, (err, results) => {
+        if (err) {
+          console.log(err);
+          return res.status(500).json({ msg: "database connection err" });
+        }
+        if (!results) {
+          return res.status(404).json({ msg: "Record not found" });
+        }
+        return res.status(200).json({ data: results });
+      });
+    } catch (error) {
+      console.error("Error in confirmOTP:", error);
+      return res.status(500).json({
+        success: false,
+        message: "Internal server error",
+      });
+    }
+  },
 };
 
 export default userController;

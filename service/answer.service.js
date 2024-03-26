@@ -17,9 +17,9 @@ const answerService = {
     }
   },
   // Get answer details by answerId
-  getAnswerDetailsById: async (answerId) => {
+  getAnswerDetailsById: async (questionId) => {
     try {
-      const rows = await query(answerQueries.getAnswerByAnswerId, [answerId]);
+      const rows = await query(answerQueries.getAnswerByAnswerId, [questionId]);
       return rows;
     } catch (error) {
       console.error("Error in getAnswerDetailsById service:", error);
