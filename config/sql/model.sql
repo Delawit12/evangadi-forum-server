@@ -23,6 +23,9 @@ CREATE TABLE IF NOT EXISTS questions (
 
 -- DROP TABLE IF EXISTS questions;
 
+-- CREATE TABLE IF NOT EXISTS answers (
+--     answerId INT AUTO_INCREMENT NOT NULL, userId INT UNIQUE NOT NULL, questionId INT UNIQUE NOT NULL, answer TEXT NOT NULL, insertedDatetime DATETIME DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (answerId), FOREIGN KEY (userId) REFERENCES users (userId), FOREIGN KEY (questionId) REFERENCES questions (questionId)
+-- );
 CREATE TABLE IF NOT EXISTS answers (
-    answerId INT AUTO_INCREMENT NOT NULL, userId INT UNIQUE NOT NULL, questionId INT UNIQUE NOT NULL, answer TEXT NOT NULL, insertedDatetime DATETIME DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (answerId), FOREIGN KEY (userId) REFERENCES users (userId), FOREIGN KEY (questionId) REFERENCES questions (questionId)
+    answerId INT AUTO_INCREMENT NOT NULL, userId INT NOT NULL, questionId INT NOT NULL, answer TEXT NOT NULL, insertedDatetime DATETIME DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (answerId), CONSTRAINT fk_user FOREIGN KEY (userId) REFERENCES users (userId), CONSTRAINT fk_question FOREIGN KEY (questionId) REFERENCES questions (questionId), CONSTRAINT unique_answer UNIQUE (userId, questionId)
 );

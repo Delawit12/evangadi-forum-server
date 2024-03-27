@@ -12,6 +12,16 @@ const userService = {
       throw error;
     }
   },
+  // get userinfo by userId
+  getUserInfoByUserId: (userId) => {
+    try {
+      const rows = query(usersQuery.getUserInfoByUserId, [userId]);
+      return rows;
+    } catch (error) {
+      console.error("Error in getUserInfoByUserId:", error);
+      throw error;
+    }
+  },
 
   // get user by email
   getUserByEmail: (userEmail) => {

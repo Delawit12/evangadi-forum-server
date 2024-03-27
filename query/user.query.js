@@ -10,7 +10,10 @@ export default {
     ORDER BY userPassword.createdDate DESC
     LIMIT 1;`,
   getUserPasswordByUserId: `SELECT * FROM userPassword WHERE userId = ? ORDER BY createdDate DESC LIMIT 1`,
-
+  getUserInfoByUserId: `SELECT u.userId, u.username, u.firstName, u.lastName, u.email, u.insertedDatetime, up.imageUrl
+  FROM users u
+  LEFT JOIN userProfile up ON u.userId = up.userId
+  WHERE u.userId = ?;`,
   // Insert Queries
   insertInToUser: `INSERT INTO users (username, firstName, lastName, email, otp, insertedDatetime) VALUES (?, ?, ?, ?, ?, CURRENT_TIMESTAMP);`,
   insertInToUserPassword: `INSERT INTO userPassword (userId, userPassword, createdDate) VALUES (?, ?, CURRENT_TIMESTAMP);`,

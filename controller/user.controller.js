@@ -309,20 +309,34 @@ const userController = {
       });
     }
   },
-  getUserById: async (req, res) => {
+  getUserInfoByUserId: async (req, res) => {
     try {
-      userService.getUserByUserId(req.body.Id, (err, results) => {
-        if (err) {
-          console.log(err);
-          return res.status(500).json({ msg: "database connection err" });
-        }
-        if (!results) {
-          return res.status(404).json({ msg: "Record not found" });
-        }
-        return res.status(200).json({ data: results });
-      });
+      console.log("req.params.id", typeof req.params.id);
+      req.body.userId = parseInt(req.params.id);
+      const userId = req.body.userId;
+      console.log("userId", typeof userId);
+      console.log("userId", userId);
+
+      // check all felids are required
+      if (!userId) {
+        return res.status(400).json({
+          success: false,
+          message: "All fields are required",
+        });
+      }
+      const isUserInfoExist = await userService.getUserInfoByUserId(userId);
+
+      console.log("isUserInfoExist", isUserInfoExist[0]);
+
+      if (!isUserInfoExist) {
+        return res.status(500).json({
+          success: false,
+          message: "user Info  not found",
+        });
+      }
+      res.status(200).json({ data: isUserInfoExist[0] });
     } catch (error) {
-      console.error("Error in confirmOTP:", error);
+      console.error("Error in getUserById:", error);
       return res.status(500).json({
         success: false,
         message: "Internal server error",

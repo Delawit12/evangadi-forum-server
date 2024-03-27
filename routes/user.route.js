@@ -8,6 +8,6 @@ userRoute.post("/login", userController.loginUser);
 userRoute.post("/forgetPassword", userController.forgetPassword);
 userRoute.post("/conformation", userController.confirmOTP);
 userRoute.post("/newPassword", userController.newPassword);
-// userRoute.get("/userinfo", auth, userController.getUserById);
+userRoute.get("/userinfo/:id", userController.getUserInfoByUserId);
 
 export default userRoute;
