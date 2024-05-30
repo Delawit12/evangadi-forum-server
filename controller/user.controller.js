@@ -1,5 +1,5 @@
 import userService from "../service/user.service.js";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import userUtility from "../utility/user.utility.js";
 import nodemailer from "nodemailer";
@@ -46,11 +46,15 @@ const userController = {
       const isPasswordAdded = await userService.insertInToUserPassword(
         req.body
       );
-
       if (isPasswordAdded) {
         res.status(200).json({
           success: true,
           message: "User created successfully",
+          user: {
+            id: req.body.userId,
+            username: req.body.username,
+            // other user details if necessary
+          },
         });
       } else {
         res.status(400).json({
